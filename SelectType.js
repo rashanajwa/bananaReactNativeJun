@@ -27,7 +27,7 @@ export const fonts = {
   Bold: {fontFamily: 'Roboto-Bold'},
 };
 
-const SelectTypePage = () => {
+const SelectTypePage = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -41,7 +41,6 @@ const SelectTypePage = () => {
         source={require('./assets/imgs/bg.jpg')}
         style={{height: height, width: width}}
       />
-      <Text style={styles.title}>{'Selection page NEW 3'}</Text>
 
       <Text style={styles.emptyText}>
         Use below buttons to select a picture of a Plantain Pest.
@@ -50,7 +49,9 @@ const SelectTypePage = () => {
       <View style={styles.btn}>
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.push('predictPage', {predictionType: 'stem'});
+          }}
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
@@ -63,7 +64,9 @@ const SelectTypePage = () => {
 
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.push('predictPage', {predictionType: 'leaf'});
+          }}
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
@@ -76,7 +79,9 @@ const SelectTypePage = () => {
 
         <TouchableOpacity
           activeOpacity={0.9}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.push('predictPage', {predictionType: 'insect'});
+          }}
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
@@ -113,6 +118,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   btn: {
     position: 'absolute',
     justifyContent: 'space-between',
@@ -156,7 +162,7 @@ const styles = StyleSheet.create({
   imageIcon: {height: 40, width: 40, tintColor: '#000'},
   emptyText: {
     position: 'absolute',
-    top: 80,
+    top: 50,
     alignSelf: 'center',
     color: '#FFF',
     fontSize: 20,

@@ -66,7 +66,7 @@ const PredictPage = () => {
     return new Promise((resolve, reject) => {
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
-       const url = 'https://10.58.11.26:8000/predict?type=insect';
+      const url = 'https://bd3f-106-195-39-113.in.ngrok.io/predict?type=insect';
       //const url = 'https://bbab-14-139-183-119.in.ngrok.io/predict?type=insect';
       return axios
         .post(url, bodyFormData)
@@ -191,13 +191,19 @@ const PredictPage = () => {
           activeOpacity={0.9}
           onPress={() => manageCamera('Camera')}
           style={styles.btnStyle}>
-          <Image source={{uri: 'camera'}} style={styles.imageIcon} />
+          <Image
+            source={require('./assets/imgs/camera.png')}
+            style={styles.imageIcon}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => manageCamera('Photo')}
           style={styles.btnStyle}>
-          <Image source={{uri: 'gallery'}} style={styles.imageIcon} />
+          <Image
+            source={require('./assets/imgs/gallery.png')}
+            style={styles.imageIcon}
+          />
         </TouchableOpacity>
       </View>
     </View>
