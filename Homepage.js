@@ -30,17 +30,17 @@ export const fonts = {
 const HomePage = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor:   Colors.lighter,
   };
 
   return (
     <View style={[backgroundStyle, styles.outer]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ImageBackground
+      {/* <ImageBackground
         blurRadius={10}
         source={require('./assets/imgs/bg.jpg')}
         style={{height: height, width: width}}
-      />
+      /> */}
       <Text style={styles.title}>{'Home page'}</Text>
 
       <Text style={styles.emptyText}>

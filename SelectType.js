@@ -30,17 +30,17 @@ export const fonts = {
 const SelectTypePage = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor:  Colors.lighter,
   };
 
   return (
     <View style={[backgroundStyle, styles.outer]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ImageBackground
+      {/* <ImageBackground
         blurRadius={10}
         source={require('./assets/imgs/bg.jpg')}
         style={{height: height, width: width}}
-      />
+      /> */}
 
       <Text style={styles.emptyText}>
         Use below buttons to select a picture of a Plantain Pest.
@@ -55,7 +55,7 @@ const SelectTypePage = ({navigation}) => {
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
-              source={require('./assets/imgs/camera.png')}
+              source={require('./assets/imgs/gallery.png')}
               style={styles.imageIcon}
             />
             <Text style={styles.categoryText}>{'Stem'}</Text>
@@ -70,7 +70,7 @@ const SelectTypePage = ({navigation}) => {
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
-              source={require('./assets/imgs/camera.png')}
+              source={require('./assets/imgs/gallery.png')}
               style={styles.imageIcon}
             />
             <Text style={styles.categoryText}>{'Leaf'}</Text>
@@ -85,7 +85,7 @@ const SelectTypePage = ({navigation}) => {
           style={styles.btnStyle}>
           <View style={styles.catogeryButtonBlock}>
             <Image
-              source={require('./assets/imgs/camera.png')}
+              source={require('./assets/imgs/gallery.png')}
               style={styles.imageIcon}
             />
             <Text style={styles.categoryText}>{'Insect'}</Text>
@@ -164,13 +164,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 50,
     alignSelf: 'center',
-    color: '#FFF',
+    color: 'green',
     fontSize: 20,
     maxWidth: '70%',
     ...fonts.Bold,
   },
   categoryText: {
     ...fonts.Bold,
+    color: 'green',
   },
 });
 

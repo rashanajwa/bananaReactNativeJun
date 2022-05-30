@@ -59,14 +59,16 @@ const PredictPage = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const [image, setImage] = useState('');
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor:  Colors.lighter,
   };
-
+  // {"name": "rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg", "type": "image/jpeg", "uri": "file:///data/user/0/com.awesomeproject/cache/rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg"}
   const getPredication = async params => {
     return new Promise((resolve, reject) => {
+      console.log('type off' )
+      console.log(  params )
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
-      const url = 'https://bd3f-106-195-39-113.in.ngrok.io/predict?type=insect';
+      const url = 'https://dc7b-14-139-183-119.in.ngrok.io/predict?type=insect';
       //const url = 'https://bbab-14-139-183-119.in.ngrok.io/predict?type=insect';
       return axios
         .post(url, bodyFormData)
@@ -154,11 +156,11 @@ const PredictPage = () => {
   return (
     <View style={[backgroundStyle, styles.outer]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ImageBackground
+      {/* <ImageBackground
         blurRadius={10}
         source={require('./assets/imgs/bg.jpg')}
         style={{height: height, width: width}}
-      />
+      /> */}
       <Text style={styles.title}>{'Plantain Pests \n\t\t\tPrediction'}</Text>
       <TouchableOpacity onPress={clearOutput} style={styles.clearStyle}>
         <Image source={{uri: 'clean'}} style={styles.clearImage} />
@@ -174,9 +176,9 @@ const PredictPage = () => {
             <Text style={styles.resultText}>{label}</Text>
           </Text>
           <Text style={[styles.space, styles.labelText]}>
-            {'Confidence: \n'}
+            {'Result: \n'}
             <Text style={styles.resultText}>
-              {parseFloat(result).toFixed(2) + '%'}
+              {(parseFloat(result)*100).toFixed(2) + '%'}
             </Text>
           </Text>
         </View>
@@ -215,9 +217,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     top: (isIOS && 35) || 10,
-    fontSize: 30,
+    fontSize: 25,
     ...fonts.Bold,
-    color: '#FFF',
+    color: 'green',
   },
   clearImage: {height: 40, width: 40, tintColor: '#FFF'},
   mainOuter: {
@@ -263,14 +265,14 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   space: {marginVertical: 10, marginHorizontal: 10},
-  labelText: {color: '#FFF', fontSize: 20, ...fonts.Bold},
-  resultText: {fontSize: 32, ...fonts.Bold},
+  labelText: {color: 'green', fontSize: 20, ...fonts.Bold},
+  resultText: {fontSize: 20, ...fonts.Bold},
   imageIcon: {height: 40, width: 40, tintColor: '#000'},
   emptyText: {
     position: 'absolute',
     top: height / 1.6,
     alignSelf: 'center',
-    color: '#FFF',
+    color: 'green',
     fontSize: 20,
     maxWidth: '70%',
     ...fonts.Bold,
