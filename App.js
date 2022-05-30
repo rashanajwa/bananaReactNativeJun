@@ -1,20 +1,30 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PlantainPage from './PlantainPage';
 import SelectTypePage from './SelectType';
 import PredictPage from './PredictPage';
+import HomeScreen from './pages/HomeScreen';
 
 const Stack = createNativeStackNavigator();
-
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff'
+  },
+};
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator  >
         <Stack.Screen
           name="Home"
-          component={SelectTypePage}
-          options={{title: 'Home'}}
+          component={HomeScreen}
+          options={{title: 'Home',
+          headerShown: false
+        }}
+         
         />
         <Stack.Screen name="selectPage" component={SelectTypePage} />
         <Stack.Screen name="plantainPage" component={PlantainPage} />
