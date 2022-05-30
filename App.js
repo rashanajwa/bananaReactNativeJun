@@ -1,41 +1,60 @@
-import * as React from 'react';
-import {NavigationContainer,DefaultTheme } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import PlantainPage from './PlantainPage';
-import SelectTypePage from './SelectType';
-import PredictPage from './PredictPage';
-import HomeScreen from './pages/HomeScreen';
+import React, { useState, useEffect, useCallback } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import Navigation from './pages/navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
+import Entypo from '@expo/vector-icons/Entypo';
 
-const Stack = createNativeStackNavigator();
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: '#fff'
-  },
-};
-const App = () => {
+export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await Font.loadAsync(Entypo.font);
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator  >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Home',
-          headerShown: false
-        }}
-         
-        />
-        <Stack.Screen name="selectPage" component={SelectTypePage} />
-        <Stack.Screen name="plantainPage" component={PlantainPage} />
-        <Stack.Screen
-          name="predictPage"
-          component={PredictPage}
-          options={{title: 'Predict'}}
-        />
-      </Stack.Navigator>
+    <NavigationContainer
+      theme={{
+        colors: {
+          background: '#fff',
+          // background: '#F7F7F7',
+        },
+      }}
+    >
+      <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+        <Navigation />
+        <StatusBar style='dark' />
+      </SafeAreaView>
     </NavigationContainer>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 50,
+  },
+});
