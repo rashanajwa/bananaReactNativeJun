@@ -1,8 +1,9 @@
-import { View, Text, ImageBackground, Image } from 'react-native';
+import { View, Text, ScrollView, Image } from 'react-native';
 import React, { useState } from 'react';
 import data from '../../assets/data/data.json';
 import { styles } from './styles';
 import logo from '../../assets/images/logo.png';
+import growingplantaintrees from '../../assets/images/growing-plantain-trees.jpg';
 const PlantainScreen = () => {
   const [desc, setDesc] = useState(data.plantainDesc.slice(0, 250));
   const [readMore, setReadMore] = useState(false);
@@ -10,11 +11,15 @@ const PlantainScreen = () => {
   console.log(data.name);
   return (
     <View style={styles.container}>
+       <ScrollView>
       {/* <ImageBackground source={logo} style={styles.backgroundImage}> */}
-      <Text style={styles.heading}>{data.plantainHeading}</Text>
-      {/* <View style={styles.imageContainer}> */}
-      <Image source={logo} style={styles.image} />
+
+      <View style={styles.imageContainer}>
+        <Image source={logo} style={styles.image} />
+      </View>
       {/* </View> */}
+      {/* <Text style={styles.heading}>{data.plantainHeading}</Text> */}
+
       <View style={styles.descriptionContainer}>
         <Text style={[styles.description, { fontWeight: '500' }]}>
           {desc}
@@ -35,7 +40,20 @@ const PlantainScreen = () => {
           </Text>
         </Text>
       </View>
-      {/* </ImageBackground> */}
+
+
+      {/* Second Heading  */}
+
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.heading}>{"Main Heading"}</Text>
+        <Text style={styles.sideHeading}>{"Side Heading"}</Text>
+        <Image source={growingplantaintrees} style={styles.plantainImage} />
+        <Text style={[styles.description, { fontWeight: '500' }]}>
+          Plantain Doctor is aimed at detecting and diagnosing pest and diseases related to plantain trees.We protect plantain trees health by quickly detecting and accurately identifying plant pests and diseases on leaves and stem, and effectively communicating these diagnoses to the farmers.
+
+        </Text>
+      </View>
+      </ScrollView>
     </View>
   );
 };

@@ -17,6 +17,8 @@ import Config from 'react-native-config';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import PermissionsService, {isIOS} from './Permissions';
+import { useNavigation } from '@react-navigation/native';
+
 
 axios.interceptors.request.use(
   async config => {
@@ -53,23 +55,23 @@ const options = {
   includeBase64: true,
 };
 
-const PredictPage = () => {
+const PredictPage = ({navigation, route, options}) => {
   const [result, setResult] = useState('');
   const [label, setLabel] = useState('');
   const isDarkMode = useColorScheme() === 'dark';
   const [image, setImage] = useState('');
   const backgroundStyle = {
     backgroundColor:  Colors.lighter,
-  };
+  }; 
+ console.log("*******************")
+ console.log(route?.params) 
   // {"name": "rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg", "type": "image/jpeg", "uri": "file:///data/user/0/com.awesomeproject/cache/rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg"}
   const getPredication = async params => {
-    return new Promise((resolve, reject) => {
-      console.log('type off' )
-      console.log(  params )
+    return new Promise((resolve, reject) => { 
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
-      const url = 'https://dc7b-14-139-183-119.in.ngrok.io/predict?type=insect';
-      //const url = 'https://bbab-14-139-183-119.in.ngrok.io/predict?type=insect';
+      // const url = `http://localhost:8000/predict?type=${route?.params}`;
+      const url = `https://c447-14-139-183-121.in.ngrok.io/predict?type=${route?.params}`;
       return axios
         .post(url, bodyFormData)
         .then(response => {
@@ -78,6 +80,7 @@ const PredictPage = () => {
         .catch(error => {
           setLabel('Failed to predicting.');
           reject('err', error);
+          console.log(error)
         });
     });
   };
@@ -161,7 +164,8 @@ const PredictPage = () => {
         source={require('./assets/imgs/bg.jpg')}
         style={{height: height, width: width}}
       /> */}
-      <Text style={styles.title}>{'Plantain Pests \n\t\t\tPrediction'}</Text>
+      {/* <Text style={styles.title}>{'Plantain Pests \n\t\t\tPrediction'}</Text> */}
+      <Text style={styles.title}>{'Predict it out !'}</Text>
       <TouchableOpacity onPress={clearOutput} style={styles.clearStyle}>
         <Image source={{uri: 'clean'}} style={styles.clearImage} />
       </TouchableOpacity>
@@ -185,7 +189,7 @@ const PredictPage = () => {
       )) ||
         (image && <Text style={styles.emptyText}>{label}</Text>) || (
           <Text style={styles.emptyText}>
-            Use below buttons to select a picture of a Plantain Pest.
+           {` Use below buttons to select a picture of a Plantain ${route?.params}.`}
           </Text>
         )}
       <View style={styles.btn}>
