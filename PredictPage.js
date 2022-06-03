@@ -17,8 +17,7 @@ import Config from 'react-native-config';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import PermissionsService, {isIOS} from './Permissions';
-import { useNavigation } from '@react-navigation/native';
-
+import {useNavigation} from '@react-navigation/native';
 
 axios.interceptors.request.use(
   async config => {
@@ -61,13 +60,14 @@ const PredictPage = ({navigation, route, options}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const [image, setImage] = useState('');
   const backgroundStyle = {
-    backgroundColor:  Colors.lighter,
-  }; 
- console.log("*******************")
- console.log(route?.params) 
+    backgroundColor: Colors.lighter,
+  };
+
+  console.log('*******************');
+  console.log(route?.params);
   // {"name": "rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg", "type": "image/jpeg", "uri": "file:///data/user/0/com.awesomeproject/cache/rn_image_picker_lib_temp_32ffe6b4-b8a7-4236-92c5-8ef75c8e6bfd.jpg"}
   const getPredication = async params => {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
       // const url = `http://localhost:8000/predict?type=${route?.params}`;
@@ -80,7 +80,9 @@ const PredictPage = ({navigation, route, options}) => {
         .catch(error => {
           setLabel('Failed to predicting.');
           reject('err', error);
-          console.log(error)
+          console.log(error);
+
+          // navigation.navigate('treatment1', 'Treatment One');
         });
     });
   };
@@ -156,6 +158,19 @@ const PredictPage = ({navigation, route, options}) => {
     });
   };
 
+  const onClickGoToTreatment = classname => {
+    switch (classname) {
+      case 'treatment1': {
+        navigation.navigate('treatment1', 'Treatment One');
+        return;
+      }
+      default: {
+        navigation.navigate('treatment1', 'Treatment One');
+        return;
+      }
+    }
+  };
+
   return (
     <View style={[backgroundStyle, styles.outer]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -182,16 +197,17 @@ const PredictPage = ({navigation, route, options}) => {
           <Text style={[styles.space, styles.labelText]}>
             {'Result: \n'}
             <Text style={styles.resultText}>
-              {(parseFloat(result)*100).toFixed(2) + '%'}
+              {(parseFloat(result) * 100).toFixed(2) + '%'}
             </Text>
           </Text>
         </View>
       )) ||
         (image && <Text style={styles.emptyText}>{label}</Text>) || (
           <Text style={styles.emptyText}>
-           {` Use below buttons to select a picture of a Plantain ${route?.params}.`}
+            {` Use below buttons to select a picture of a Plantain ${route?.params}.`}
           </Text>
         )}
+
       <View style={styles.btn}>
         <TouchableOpacity
           activeOpacity={0.9}

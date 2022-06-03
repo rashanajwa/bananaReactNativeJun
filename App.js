@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 import Navigation from './pages/navigation';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -15,7 +15,7 @@ export default function App() {
         await SplashScreen.preventAutoHideAsync();
         await Font.loadAsync(Entypo.font);
 
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -41,11 +41,10 @@ export default function App() {
           background: '#fff',
           // background: '#F7F7F7',
         },
-      }}
-    >
+      }}>
       <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
         <Navigation />
-        <StatusBar style='dark' />
+        <StatusBar style="dark" />
       </SafeAreaView>
     </NavigationContainer>
   );
