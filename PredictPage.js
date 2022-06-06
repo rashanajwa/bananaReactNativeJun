@@ -11,13 +11,14 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  Button,
 } from 'react-native';
 import axios from 'axios';
 import Config from 'react-native-config';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import PermissionsService, {isIOS} from './Permissions';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, Link} from '@react-navigation/native';
 
 axios.interceptors.request.use(
   async config => {
@@ -71,7 +72,7 @@ const PredictPage = ({navigation, route, options}) => {
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
       // const url = `http://localhost:8000/predict?type=${route?.params}`;
-      const url = `https://c447-14-139-183-121.in.ngrok.io/predict?type=${route?.params}`;
+      const url = `https://fc85-14-139-183-119.in.ngrok.io/predict?type=${route?.params}`;
       return axios
         .post(url, bodyFormData)
         .then(response => {
@@ -158,11 +159,11 @@ const PredictPage = ({navigation, route, options}) => {
     });
   };
 
-  const onClickGoToTreatment = classname => {
-    switch (classname) {
-      case 'treatment1': {
-        navigation.navigate('treatment1', 'Treatment One');
-        return;
+  const onClickGoToTreatment = () => {
+    // return 'treatment1';
+    switch (label) {
+      case 'Healthy_stem_new': {
+        return 'treatment1';
       }
       default: {
         navigation.navigate('treatment1', 'Treatment One');
@@ -190,15 +191,14 @@ const PredictPage = ({navigation, route, options}) => {
         null}
       {(result && label && (
         <View style={styles.mainOuter}>
-          <Text style={[styles.space, styles.labelText]}>
-            {'Label: \n'}
+          <Text style={[styles.labelText]}>
+            {'Label: '}
             <Text style={styles.resultText}>{label}</Text>
           </Text>
-          <Text style={[styles.space, styles.labelText]}>
-            {'Result: \n'}
-            <Text style={styles.resultText}>
-              {(parseFloat(result) * 100).toFixed(2) + '%'}
-            </Text>
+          <Text
+            style={styles.treatmentBtnText}
+            onPress={() => onClickGoToTreatment()}>
+            {'View Treatment'}
           </Text>
         </View>
       )) ||
@@ -207,7 +207,7 @@ const PredictPage = ({navigation, route, options}) => {
             {` Use below buttons to select a picture of a Plantain ${route?.params}.`}
           </Text>
         )}
-
+      <View style={styles.linkBtn}></View>
       <View style={styles.btn}>
         <TouchableOpacity
           activeOpacity={0.9}
@@ -243,8 +243,7 @@ const styles = StyleSheet.create({
   },
   clearImage: {height: 40, width: 40, tintColor: '#FFF'},
   mainOuter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     position: 'absolute',
     top: height / 1.6,
     alignSelf: 'center',
@@ -286,6 +285,8 @@ const styles = StyleSheet.create({
   },
   space: {marginVertical: 10, marginHorizontal: 10},
   labelText: {color: 'green', fontSize: 20, ...fonts.Bold},
+  treatmentLink: {color: 'green', fontSize: 15, bottom: 0},
+  linkBtn: {top: 200},
   resultText: {fontSize: 20, ...fonts.Bold},
   imageIcon: {height: 40, width: 40, tintColor: '#000'},
   emptyText: {
@@ -296,6 +297,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     maxWidth: '70%',
     ...fonts.Bold,
+  },
+  treatmentBtnText: {
+    marginTop: 15,
+    fontSize: 17,
+    color: 'green',
+    textAlign: 'center',
   },
 });
 

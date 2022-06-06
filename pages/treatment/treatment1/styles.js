@@ -25,6 +25,13 @@ export const styles = StyleSheet.create({
     color: '#009378',
     marginBottom: 10
   },
+  subHeading: {
+    fontWeight: 'bold',
+    fontSize: 19,
+    color: '#000',
+    marginTop: 15,
+    marginBottom: 15
+  },
   sideHeading: {
     fontWeight: 'bold',
     fontSize: 16,
