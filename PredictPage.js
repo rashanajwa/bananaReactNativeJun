@@ -72,7 +72,7 @@ const PredictPage = ({navigation, route, options}) => {
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
       // const url = `http://localhost:8000/predict?type=${route?.params}`;
-      const url = `https://fc85-14-139-183-119.in.ngrok.io/predict?type=${route?.params}`;
+      const url = `https://2c05-14-139-183-119.in.ngrok.io/predict?type=${route?.params}`;
       return axios
         .post(url, bodyFormData)
         .then(response => {
