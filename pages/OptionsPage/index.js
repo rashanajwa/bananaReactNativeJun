@@ -16,7 +16,7 @@ const OptionScreen = () => {
         </Pressable>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate('ImageSelector', 'leaves')}>
+          onPress={() => navigation.navigate('ImageSelector', 'leaf')}>
           <Text style={styles.text}>Leaves</Text>
         </Pressable>
         <Pressable

@@ -72,7 +72,7 @@ const PredictPage = ({navigation, route, options}) => {
       var bodyFormData = new FormData();
       bodyFormData.append('file', params);
       // const url = `http://localhost:8000/predict?type=${route?.params}`;
-      const url = `https://2c05-14-139-183-119.in.ngrok.io/predict?type=${route?.params}`;
+      const url = `https://5ae1-14-139-183-119.in.ngrok.io/predict?type=${route?.params}`;
       return axios
         .post(url, bodyFormData)
         .then(response => {
@@ -161,14 +161,41 @@ const PredictPage = ({navigation, route, options}) => {
 
   const onClickGoToTreatment = () => {
     // return 'treatment1';
+    console.log(label);
     switch (label) {
-      case 'Healthy_stem_new': {
-        return 'treatment1';
-      }
-      default: {
-        navigation.navigate('treatment1', 'Treatment One');
+      case 'Larva': {
+        navigation.navigate('treatment-larva', 'Larva');
         return;
       }
+      case 'Weevils': {
+        navigation.navigate('treatment-weevils', 'Weevils');
+        return;
+      }
+      case 'Earwigs': {
+        navigation.navigate('treatment-earwigs', 'Earwigs');
+        return;
+      }
+      case 'Fusarium wilt': {
+        navigation.navigate('treatment-fusarium-wilt', 'Fusarium Wilt');
+        return;
+      }
+      case 'Bacterial wilt': {
+        navigation.navigate('treatment-bacterial-wilt', 'BacterialWilt');
+        return;
+      }
+      case 'Sigatoka': {
+        navigation.navigate('treatment-sigatoka', 'Sigatoka');
+        return;
+      }
+      case 'Cordana': {
+        navigation.navigate('treatment-cordana', 'Cordana');
+        return;
+      }
+      case 'Pestalotiopsis': {
+        navigation.navigate('treatment-pestalotiopsis', 'Pestalotiopsis');
+        return;
+      }
+      
     }
   };
 
@@ -195,11 +222,12 @@ const PredictPage = ({navigation, route, options}) => {
             {'Label: '}
             <Text style={styles.resultText}>{label}</Text>
           </Text>
+          {  
           <Text
             style={styles.treatmentBtnText}
             onPress={() => onClickGoToTreatment()}>
             {'View Treatment'}
-          </Text>
+          </Text>}
         </View>
       )) ||
         (image && <Text style={styles.emptyText}>{label}</Text>) || (
